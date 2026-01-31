@@ -6,7 +6,7 @@ from langchain_tavily import TavilySearch
 
 #guardRails evaluating LLM + LLM observability
 
-from system_prompts import ROUTER_AGENT_SYSTEM_PROMPT, NEWS_AGENT_PROMPT
+from system_prompts import ROUTER_AGENT_SYSTEM_PROMPT, NEWS_AGENT_PROMPT, SCAM_PROMPT
 
 load_dotenv()
 
@@ -22,7 +22,19 @@ def router_agent(state):
     routing_chain = prompt | llm
     agent_category = routing_chain.invoke({"input" : state["input"]})
 
-    return {"route" : agent_category}
+    return {"route" : agent_category.content}
+
+def scam_agent(state):
+
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", SCAM_PROMPT),
+        ("human", "{input}")
+    ])
+
+    routing_chain = prompt | llm
+    scam_response = routing_chain.invoke({"input": state["input"]})
+
+    return {"response": scam_response.content}
 
 def news_agent(state):
     web_search_tool = TavilySearch(max_results=5)
