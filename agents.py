@@ -1,0 +1,35 @@
+from dotenv import load_dotenv
+from langchain.agents import create_agent
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_tavily import TavilySearch
+
+from system_prompts import ROUTER_AGENT_SYSTEM_PROMPT
+
+load_dotenv()
+
+llm = ChatOpenAI(model="gpt-4.1-mini-2025-04-14") #smartest non-reasoning model
+
+def router_agent(state):
+
+    prompt = ChatPromptTemplate.from_template([
+        ("system" , ROUTER_AGENT_SYSTEM_PROMPT),
+        ("message" , "{input}")
+    ])
+
+    routing_chain = prompt | llm
+    agent_category = routing_chain.invoke({"input" : state["input"]})
+
+    return {"route" : agent_category}
+
+def news_agent(state):
+    web_search_tool = TavilySearch(max_results=5)
+
+    agent = create_agent(
+        model=llm,
+        system_prompt=NEWS_AGENT_PROMPT
+    )
+
+
+
+
