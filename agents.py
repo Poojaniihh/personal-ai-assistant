@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
 
-from system_prompts import ROUTER_AGENT_SYSTEM_PROMPT
+from system_prompts import ROUTER_AGENT_SYSTEM_PROMPT, NEWS_AGENT_PROMPT
 
 load_dotenv()
 
@@ -27,8 +27,20 @@ def news_agent(state):
 
     agent = create_agent(
         model=llm,
-        system_prompt=NEWS_AGENT_PROMPT
+        system_prompt=NEWS_AGENT_PROMPT,
+        tools=[web_search_tool]
     )
+
+    result = agent.invoke({
+        "messages" : [
+            {
+                "role" : "user",
+                "content" : state["input"]
+            }
+        ]
+    }
+    )
+    return {"response" : result["messages"][-1].content}
 
 
 
