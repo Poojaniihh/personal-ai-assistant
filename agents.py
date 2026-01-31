@@ -4,6 +4,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
 
+#guardRails evaluating LLM + LLM observability
+
 from system_prompts import ROUTER_AGENT_SYSTEM_PROMPT, NEWS_AGENT_PROMPT
 
 load_dotenv()
@@ -12,9 +14,9 @@ llm = ChatOpenAI(model="gpt-4.1-mini-2025-04-14") #smartest non-reasoning model
 
 def router_agent(state):
 
-    prompt = ChatPromptTemplate.from_template([
+    prompt = ChatPromptTemplate.from_messages([
         ("system" , ROUTER_AGENT_SYSTEM_PROMPT),
-        ("message" , "{input}")
+        ("human" , "{input}")
     ])
 
     routing_chain = prompt | llm
@@ -40,6 +42,7 @@ def news_agent(state):
         ]
     }
     )
+
     return {"response" : result["messages"][-1].content}
 
 
