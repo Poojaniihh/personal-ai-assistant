@@ -1,9 +1,9 @@
  
- 
-   <li align=center>GuardRails</li>
-   <li align=center>Evaluating LLMs</li>
-   <li align=center>LLM observability</li>
- 
+ <ul>
+   <li>GuardRails</li>
+   <li>Evaluating LLMs</li>
+   <li>LLM observability</li>
+ </ul>
  
 
 ## State Diagram
