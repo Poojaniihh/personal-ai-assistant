@@ -1,8 +1,8 @@
-- GuardRails 
+<p align=center>- GuardRails 
 - Evaluating LLMs 
-- LLM observability
+- LLM observability</p>
 
-## 🏗 Architecture
+## State Diagram
 
-![System Architecture](assets/stateDiagram.drawio-2.png)
+![State Diagram](assets/stateDiagram.drawio-2.png)
  
