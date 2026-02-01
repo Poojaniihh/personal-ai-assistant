@@ -1,6 +1,10 @@
-<p align=center>- GuardRails 
-- Evaluating LLMs 
-- LLM observability</p>
+<p align=center>
+ <ul>
+   <li>GuardRails</li>
+   <li>Evaluating LLMs</li>
+   <li>LLM observability</li>
+ </ul>
+</p>
 
 ## State Diagram
 
